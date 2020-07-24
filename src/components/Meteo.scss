@@ -1,0 +1,218 @@
+.meteo-container {
+  background:  rgba(16,13,30,1);
+}
+
+.current-weather {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  position: relative;
+  color: white;
+  height: 100vh;
+  box-sizing: border-box;
+
+  .description {
+    text-transform: uppercase;
+    font-weight: 800;
+  }
+
+  $border: 1px;
+
+  .icon-weather {
+    height: 100px;
+    width: 100px;
+    margin-top: 20px;
+    background-image: url(../assets/icon-wind.svg);
+  }
+
+  .cercle-temp {
+    position: relative;
+    box-sizing: border-box;
+    padding: 10px;
+    height: 240px;
+    width: 240px;
+    background-color: blanchedalmond;
+    border-radius: 50%;
+    margin: 60px auto;
+    border: solid $border transparent !important;
+    background-clip: padding-box !important;
+    background: linear-gradient(to right, red, orange);
+    box-shadow: 0 0 10px red;
+    transition: .5s;
+    animation: bg-anim 3s infinite;
+    z-index: 2;
+
+    @keyframes bg-anim {
+      0% {
+        background: red
+      }
+
+      50% {
+        background: orange;
+      }
+
+      100% {
+        background: red
+      }
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(16,13,30,1);
+      margin: $border !important;
+      border-radius: inherit !important;
+      box-shadow: 0 0 20px rgb(174, 0, 0) inset;
+    }
+  }
+
+  .city-wrapper {
+    position: fixed;
+    white-space: nowrap;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 120px;
+    font-style: italic;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: .5px white;
+    animation: anim-desc 7s infinite;
+    z-index: 1;
+
+    .city {
+      .marquee-text-wrap {
+        overflow: visible;
+      }
+
+      .init-country {
+        margin-right: 15px;
+      }
+
+      .spacer-desc {
+        margin-right: 50px;
+      }
+    }
+  }
+
+  .temperature {
+    font-size: 70px;
+    z-index: 10000;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 800;
+
+    &.not-visible {
+      opacity: 0;
+      z-index: -1;
+    }
+
+    &.visible {
+      opacity: 1;
+      z-index: 10;
+    }
+
+    &:after {
+      content: '°';
+      position: absolute;
+      top: 10px;
+      font-size: 28px;
+    }
+  }
+
+  .sub-infos-wrapper {
+    display: flex;
+    position: absolute;
+    top: 30px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 20px auto 0;
+    width: 400px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+}
+
+.list-weather {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  color: white;
+  overflow: auto;
+  margin-bottom: 30px;
+  padding: 30px;
+  box-sizing: border-box;
+
+  div {
+    width: 100px;
+    
+    .description {
+      box-sizing: border-box;
+      height: 50px;
+      width: 35px;
+      margin: 10px auto;
+      background-color: white;
+      mask-repeat: no-repeat;
+      mask-size: contain;
+      mask-position: center;
+
+      &.ciel-dégagé {
+        mask-image: url(../assets/soleil.svg);
+      }
+
+      &.couvert,
+      &.nuageux {
+        mask-image: url(../assets/nuage.svg);
+      }
+
+      &.peu-nuageux,
+      &.partiellement-nuageux {
+        mask-image: url(../assets/nuages-leger.svg);
+      }
+
+      &.légère-pluie {
+        mask-image: url(../assets/pluie.svg);
+      }
+    }
+  }
+}
+
+.modale {
+  position: fixed;
+  top: -50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-height: 200px;
+  opacity: 0;
+  transition: .5s ease-in-out;
+
+  label {
+    color: white;
+    display: block;
+  }
+
+  input {
+    font-size: 50px;
+    text-align: center;
+    background-color: rgb(58, 67, 77);
+    color: white;
+    padding: 10px;
+    border: 0;
+  }
+
+  &.visible {
+    opacity: 1;
+    top: 50%;
+  }
+}
